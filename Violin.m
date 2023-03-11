@@ -692,7 +692,9 @@ classdef Violin < handle
             if isempty(data)
                 error('Empty input data');
             end
-            [density, value] = ksdensity(data, 'bandwidth', bandwidth);
+            [~, value] = ksdensity(data, 'bandwidth', bandwidth);
+            pts = linspace(min(value),max(value),1000);
+            [density, value] = ksdensity(data, pts, 'bandwidth', bandwidth);
             density = density(value >= min(data) & value <= max(data));
             value = value(value >= min(data) & value <= max(data));
             value(1) = min(data);
